@@ -1,0 +1,853 @@
+{
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "radiogroup",
+     "name": "readytogo",
+     "title": "ไปงานสัมมนากันมั้ยจ๊ะ",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "Yes",
+       "text": "ไปสิ"
+      },
+      {
+       "value": "No",
+       "text": "ไม่ไป"
+      }
+     ],
+     "colCount": 0
+    },
+    {
+     "type": "radiogroup",
+     "name": "howtogo",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "ไปกันยังไง",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "1",
+       "text": "รถบัส"
+      },
+      {
+       "value": "2",
+       "text": "ขับรถไปเอง"
+      }
+     ]
+    },
+    {
+     "type": "dropdown",
+     "name": "datetogo",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "ไปวันไหน",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "1",
+       "text": "12 ธันวาคม 2562"
+      },
+      {
+       "value": "2",
+       "text": "13 ธันวาคม 2562"
+      },
+      {
+       "value": "3",
+       "text": "14 ธันวาคม 2562"
+      }
+     ],
+     "optionsCaption": "เลือก..."
+    },
+    {
+     "type": "dropdown",
+     "name": "datetoback",
+     "visibleIf": "{readytogo}='Yes'",
+     "startWithNewLine": false,
+     "title": "กลับวันไหน",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "validators": [
+      {
+       "type": "expression",
+       "text": "เลือกวันให้ถูกด้วยจ้า",
+       "expression": "{datetoback} >= {datetogo} "
+      }
+     ],
+     "choices": [
+      {
+       "value": "1",
+       "text": "12 ธันวาคม 2562"
+      },
+      {
+       "value": "2",
+       "text": "13 ธันวาคม 2562"
+      },
+      {
+       "value": "3",
+       "text": "14 ธันวาคม 2562"
+      }
+     ],
+     "optionsCaption": "เลือก..."
+    },
+    {
+     "type": "radiogroup",
+     "name": "typeofsleep",
+     "visibleIf": "{readytogo} = \"Yes\"",
+     "title": "อยากนอนแบบไหน",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "roommate",
+       "text": "นอนคู่"
+      },
+      {
+       "value": "family",
+       "text": "นอนกับครอบครัว"
+      },
+      {
+       "value": "random",
+       "text": "แล้วแต่ทีมงานจัดเลย หรือ นอน 3 คน (โปรดระบุรายละเอียด)"
+      }
+     ]
+    },
+    {
+     "type": "comment",
+     "name": "random_desc",
+     "visibleIf": "{typeofsleep} = \"random\"",
+     "title": "มีคอมเมนต์อะไรฝากถึงทีมงานเรื่อง roommate มั้ยจ๊ะ",
+     "enableIf": "{typeofsleep} = \"random\"",
+     "requiredErrorText": "กรอกเยอะไปมั้ยอ่าา",
+     "maxLength": 200
+    },
+    {
+     "type": "dropdown",
+     "name": "partner",
+     "visibleIf": "{readytogo}='Yes' and {typeofsleep} = \"roommate\"",
+     "title": "อยากนอนกับใครเอ่ย",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "renderAs": "select2"
+    },
+    {
+     "type": "checkbox",
+     "name": "food",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "ทานอะไรกันได้มั่ง (เลือกได้มากกว่า 1 ข้อนะจ๊ะ)",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "1",
+       "text": "ได้ทุกอย่าง"
+      },
+      {
+       "value": "2",
+       "text": "ฮาลาล"
+      },
+      {
+       "value": "3",
+       "text": "มังสวิรัติ"
+      },
+      {
+       "value": "4",
+       "text": "ไม่ทานเนื้อวัว"
+      }
+     ]
+    },
+    {
+     "type": "text",
+     "name": "follower_disease",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "มีโรคประจำตัว/แพ้อะไรมั้ยจ๊ะ",
+     "requiredErrorText": "โอ๊ะโอ กรอกเยอะไปป่าวจ๊ะ",
+     "validators": [
+      {
+       "type": "text",
+       "text": "โอ๊ะโอ กรอกเยอะไปมั้ยอ่าาา",
+       "minLength": 0,
+       "maxLength": 200,
+       "allowDigits": true
+      }
+     ]
+    },
+    {
+     "type": "text",
+     "name": "insurance_benefit",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "ผู้รับผลประโยชน์กรมธรรม์ (ชื่อ - นามสกุล)",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "validators": [
+      {
+       "type": "regex",
+       "text": "โอ๊ะโอ! ตัวอักษรเท่านะจ๊ะ",
+       "regex": "^[ก-๏\\s]+$"
+      },
+      {
+       "type": "text",
+       "text": "โอ๊ะโอ กรอกเยอะไปมั้ยอ่า",
+       "minLength": 0,
+       "maxLength": 30,
+       "allowDigits": true
+      }
+     ],
+     "size": 200
+    },
+    {
+     "type": "dropdown",
+     "name": "insurance_benefit_relation",
+     "visibleIf": "{readytogo}='Yes'",
+     "startWithNewLine": false,
+     "title": "มีความสัมพันธ์เป็น",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      "พ่อ",
+      "แม่",
+      "พี่ชาย/น้องชาย",
+      "พี่สาว/น้องสาว",
+      {
+       "value": "ลูกชาย/ลูกสาว",
+       "text": "ลูกชาย"
+      },
+      {
+       "value": "item1",
+       "text": "ลูกสาว"
+      },
+      "คู่สมรส",
+      "เพื่อน",
+      "ปู่/ตา/ลุง",
+      "ย่า/ยาย/ป้า",
+      "น้า/อา"
+     ],
+     "optionsCaption": "เลือก..."
+    },
+    {
+     "type": "text",
+     "name": "employee_contact",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "เบอร์โทรติดต่อฉุกเฉิน (ที่สามารถติดต่อได้)",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "validators": [
+      {
+       "type": "regex",
+       "text": "อย่าลืมใส่เบอร์ให้ถูกด้วยน๊าาา",
+       "regex": "^[0-9]{3}-?[0-9]{3}-?[0-9]{4}$"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "page2",
+   "elements": [
+    {
+     "type": "radiogroup",
+     "name": "follower",
+     "visibleIf": "{readytogo}='Yes'",
+     "title": "มีคนติดตามไปด้วยมั้ย",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "Yes",
+       "text": "มีจ้า"
+      },
+      {
+       "value": "No",
+       "text": "ไม่มีจ้า"
+      }
+     ]
+    },
+    {
+     "type": "paneldynamic",
+     "name": "detailfollower",
+     "visible": false,
+     "useDisplayValuesInTitle": false,
+     "visibleIf": "{follower}='Yes' && {readytogo}='Yes' ",
+     "title": "รายละเอียดผู้ติดตาม",
+     "templateElements": [
+      {
+       "type": "expression",
+       "name": "follwer_budget_room",
+       "visible": false,
+       "title": "ค่าใช้จ่ายผู้ติดตาม",
+       "isRequired": true,
+       "readOnly": true,
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      },
+      {
+       "type": "expression",
+       "name": "follwer_budget_jointoeat",
+       "visible": false,
+       "startWithNewLine": false,
+       "title": "ค่าใช้จ่ายกินข้าวด้วย",
+       "readOnly": true,
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      },
+      {
+       "type": "expression",
+       "name": "follwer_budget_insurance",
+       "visible": false,
+       "startWithNewLine": false,
+       "title": "ค่าใช้จ่ายทำประกัน",
+       "readOnly": true,
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      },
+      {
+       "type": "text",
+       "name": "follwerid",
+       "title": "เลขบัตรประชาชน",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "validators": [
+        {
+         "type": "expression",
+         "text": "กรอกเลขบัตรประชาชนให้ถูกด้วยจ้า",
+         "expression": "CheckIDCard({panel.follwerid}) > 0"
+        }
+       ]
+      },
+      {
+       "type": "text",
+       "name": "follwer_name",
+       "startWithNewLine": false,
+       "title": "ชื่อ - นามสกุล",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "validators": [
+        {
+         "type": "expression",
+         "text": "โอ๊ะโอ! ชื่อซ้ำนะกับตัวเองนะจ๊ะ",
+         "expression": "{panel.follwer_name} <> {yourname}   "
+        },
+        {
+         "type": "regex",
+         "text": "กรอกชื่อให้พอดีด้วยจ้า",
+         "regex": "^(?!(^-|-$|.{30,})).*"
+        }
+       ],
+       "size": 30,
+       "maxLength": 30
+      },
+      {
+       "type": "text",
+       "name": "follwer_age",
+       "startWithNewLine": false,
+       "title": "อายุ",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "validators": [
+        {
+         "type": "regex",
+         "text": "ใส่อายุให้ถูกด้วยน๊า"
+        },
+        {
+         "type": "numeric",
+         "text": "ใส่อายุให้ถูกด้วยจ้า",
+         "minValue": 0,
+         "maxValue": 99
+        }
+       ]
+      },
+      {
+       "type": "checkbox",
+       "name": "follwer_jointoeat",
+       "title": "กินข้าวกับเรามื้อไหนบ้าง",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        {
+         "value": "1",
+         "text": "มื้อกลางวัน(วันที่1)"
+        },
+        {
+         "value": "2",
+         "text": "มื้อเย็น(วันที่1)"
+        },
+        {
+         "value": "3",
+         "text": "มื้อกลางวัน(วันที่2)"
+        },
+        {
+         "value": "4",
+         "text": "มื้อเย็น(วันที่2)"
+        },
+        {
+         "value": "5",
+         "text": "มื้อกลางวัน(วันที่3)"
+        },
+        {
+         "value": "6",
+         "text": "ไม่กินเลยสักมื้อจ้าา"
+        }
+       ]
+      },
+      {
+       "type": "checkbox",
+       "name": "follwer_food",
+       "visibleIf": "{panel.follwer_jointoeat}=1",
+       "title": "ทานอะไรกันได้มั่ง(เลือกได้มากกว่า 1 ข้อนะจ๊ะ)",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        {
+         "value": "1",
+         "text": "ได้ทุกอย่าง"
+        },
+        {
+         "value": "2",
+         "text": "ฮาลาล"
+        },
+        {
+         "value": "3",
+         "text": "มังสวิรัติแหละ"
+        },
+        {
+         "value": "4",
+         "text": "ไม่ทานเนื้อวัว"
+        }
+       ],
+       "colCount": 0
+      },
+      {
+       "type": "radiogroup",
+       "name": "follwer_foodallergy",
+       "visibleIf": "{panel.follwer_jointoeat}=1",
+       "title": "แพ้อาหารอะไรบ้างรึเปล่า",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        {
+         "value": "1",
+         "text": "ไม่แพ้อะไรเลยชนะทุกอย่าง"
+        },
+        {
+         "value": "2",
+         "text": "มีแพ้แหละ"
+        }
+       ],
+       "colCount": 0
+      },
+      {
+       "type": "text",
+       "name": "follwer_foodallergy_detail",
+       "visibleIf": "{panel.follwer-foodallergy} = '2'",
+       "startWithNewLine": false,
+       "title": "แพ้อะไรบ้าง บอกเราหน่อย",
+       "isRequired": true,
+       "requiredErrorText": "โอ๊ะโอ กรอกเยอะไปมั้ยอ่า",
+       "validators": [
+        {
+         "type": "text",
+         "minLength": 0,
+         "maxLength": 200,
+         "allowDigits": true
+        }
+       ],
+       "maxLength": 200
+      },
+      {
+       "type": "radiogroup",
+       "name": "follwermakeinsurance",
+       "title": "สนใจทำประกันกลุ่มกับเราด้วยมั้ย (มีค่าใช้จ่ายเพิ่มเติม)",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        {
+         "value": "1",
+         "text": "ทำสิจ๊ะ รอไร"
+        },
+        {
+         "value": "2",
+         "text": "ไม่ทำจ้า ดูแลตัวเองได้"
+        }
+       ],
+       "colCount": 0
+      },
+      {
+       "type": "text",
+       "name": "follwer_insurance",
+       "visibleIf": "{panel.follwermakeinsurance}=1",
+       "title": "ผู้รับผลประโยชน์กรมธรรม์ (ชื่อ - นามสกุล)",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "validators": [
+        {
+         "type": "regex",
+         "text": "โอ๊ะโอ กรอกให้ถูกด้วยจ้า",
+         "regex": "^[ก-๏\\s]{0,30}$"
+        }
+       ]
+      },
+      {
+       "type": "dropdown",
+       "name": "follwer_insurance_relation",
+       "visibleIf": "{panel.follwermakeinsurance}=1",
+       "startWithNewLine": false,
+       "title": "มีความสัมพันธ์เป็น",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        "พ่อ",
+        "แม่",
+        "พี่ชาย/น้องชาย",
+        "พี่สาว/น้องสาว",
+        {
+         "value": "ลูกชาย/ลูกสาว",
+         "text": "ลูกชาย"
+        },
+        {
+         "value": "item1",
+         "text": "ลูกสาว"
+        },
+        "คู่สมรส",
+        "เพื่อน",
+        "ปู่/ตา/ลุง",
+        "ย่า/ยาย/ป้า",
+        "น้า/อา"
+       ],
+       "optionsCaption": "เลือก..."
+      },
+      {
+       "type": "text",
+       "name": "follower_disease1",
+       "visibleIf": "{readytogo}='Yes'",
+       "title": "มีโรคประจำตัว/แพ้อะไรมั้ยจ๊ะ",
+       "validators": [
+        {
+         "type": "text",
+         "text": "โอ๊ะโอ กรอกเยอะไปมั้ยอ่าาา",
+         "minLength": 0,
+         "maxLength": 200,
+         "allowDigits": true
+        }
+       ]
+      },
+      {
+       "type": "expression",
+       "name": "total_budget_follower",
+       "visible": false,
+       "title": "ค่าใช้จ่ายผู้ติดตามคนที่ #{panelIndex}",
+       "expression": "{panel.follwer_budget_room} + {panel.follwer_budget_jointoeat} + {panel.follwer_budget_insurance}",
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      }
+     ],
+     "templateTitle": "ผู้ติดตามคนที่ #{panelIndex}",
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "เพิ่มผู้ติดตาม",
+     "panelRemoveText": "ไม่เพิ่มละ..เปลี่ยนใจ"
+    },
+    {
+     "type": "panel",
+     "name": "panel2",
+     "elements": [
+      {
+       "type": "expression",
+       "name": "totalQuantity",
+       "visibleIf": "{follower} = \"Yes\"  and {detailfollower[0].total_budget_follower} <> 0.00",
+       "title": "รวมค่าใช้จ่ายทั้งหมด",
+       "expression": "sumInArray({detailfollower}, 'total_budget_follower'",
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      }
+     ],
+     "title": "รวมค่าใช้จ่ายผู้ติดตาม"
+    }
+   ]
+  },
+  {
+   "name": "page3",
+   "elements": [
+    {
+     "type": "dropdown",
+     "name": "shirt",
+     "title": "เลือกไซส์เสื้อสัมมนาด้วยนะคะ",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "female-xxs",
+       "text": "ญ ไซส์ XXS (อก 34)"
+      },
+      {
+       "value": "female-xs",
+       "text": "ญ ไซส์ XS (อก 36)"
+      },
+      {
+       "value": "female-s",
+       "text": "ญ ไซส์ S (อก 38)"
+      },
+      {
+       "value": "female-m",
+       "text": "ญ ไซส์ M (อก 40)"
+      },
+      {
+       "value": "female-l",
+       "text": "ญ ไซส์ L (อก 42)"
+      },
+      {
+       "value": "female-xl",
+       "text": "ญ ไซส์ XL (อก 44)"
+      },
+      {
+       "value": "female-xxl",
+       "text": "ญ ไซส์ XXL (อก 46)"
+      },
+      {
+       "value": "male-xs",
+       "text": "ช ไซส์ XS (อก 36)"
+      },
+      {
+       "value": "male-s",
+       "text": "ช ไซส์ S (อก 38)"
+      },
+      {
+       "value": "male-m",
+       "text": "ช ไซส์ M (อก 40)"
+      },
+      {
+       "value": "male-l",
+       "text": "ช ไซส์ L (อก 42)"
+      },
+      {
+       "value": "male-xl",
+       "text": "ช ไซส์ XL (อก 44)"
+      },
+      {
+       "value": "male-xxl",
+       "text": "ช ไซส์ XXL (อก 46)"
+      },
+      {
+       "value": "male-3xl",
+       "text": "ช ไซส์ 3XL (อก 48)"
+      },
+      {
+       "value": "male-4xl",
+       "text": "ช ไซส์ 4XL (อก 50)"
+      },
+      {
+       "value": "male5xl",
+       "text": "ช ไซส์ 5XL (อก 52)"
+      },
+      {
+       "value": "other",
+       "text": "ไซส์พิเศษ"
+      }
+     ],
+     "otherText": "ไซส์พิเศษ",
+     "optionsCaption": "เลือก..."
+    },
+    {
+     "type": "radiogroup",
+     "name": "shirt_add_more",
+     "title": "อยากสั่งเสื้อเพิ่มมั้ยเอ่ย",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "choices": [
+      {
+       "value": "No",
+       "text": "ไม่จ้า ตัวเดียวก็พอแล้ว"
+      },
+      {
+       "value": "Yes",
+       "text": "สั่งสิ จะรออะไร"
+      }
+     ]
+    },
+    {
+     "type": "paneldynamic",
+     "name": "items",
+     "visibleIf": "{shirt_add_more} = \"Yes\"",
+     "title": "เลือกไซส์เสื้อที่จะสั่งเพิ่มเลย (มีค่าใช้จ่ายเพิ่มเติมตามไซส์นะจ๊ะ)",
+     "templateElements": [
+      {
+       "type": "dropdown",
+       "name": "shirt_more",
+       "title": "เลือกไซส์เสื้อเลยจ้า",
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "choices": [
+        {
+         "value": "female-xxs",
+         "text": "ญ ไซส์ XXS (อก 34)"
+        },
+        {
+         "value": "female-xs",
+         "text": "ญ ไซส์ XS (อก 36)"
+        },
+        {
+         "value": "female-s",
+         "text": "ญ ไซส์ S (อก 38)"
+        },
+        {
+         "value": "female-m",
+         "text": "ญ ไซส์ M (อก 40)"
+        },
+        {
+         "value": "female-l",
+         "text": "ญ ไซส์ L (อก 42)"
+        },
+        {
+         "value": "female-xl",
+         "text": "ญ ไซส์ XL (อก 44)"
+        },
+        {
+         "value": "female-xxl",
+         "text": "ญ ไซส์ XXL (อก 46)"
+        },
+        {
+         "value": "male-xs",
+         "text": "ช ไซส์ XS (อก 36)"
+        },
+        {
+         "value": "male-s",
+         "text": "ช ไซส์ S (อก 38)"
+        },
+        {
+         "value": "male-m",
+         "text": "ช ไซส์ M (อก 40)"
+        },
+        {
+         "value": "male-l",
+         "text": "ช ไซส์ L (อก 42)"
+        },
+        {
+         "value": "male-xl",
+         "text": "ช ไซส์ XL (อก 44)"
+        },
+        {
+         "value": "male-xxl",
+         "text": "ช ไซส์ XXL (อก 46)"
+        },
+        {
+         "value": "male-3xl",
+         "text": "ช ไซส์ 3XL (อก 48)"
+        },
+        {
+         "value": "male-4xl",
+         "text": "ช ไซส์ 4XL (อก 50)"
+        },
+        {
+         "value": "male-5xl",
+         "text": "ช ไซส์ 5XL (อก 52)"
+        },
+        {
+         "value": "other",
+         "text": "ไซส์พิเศษ"
+        }
+       ],
+       "optionsCaption": "เลือก..."
+      },
+      {
+       "type": "text",
+       "name": "quantity_shirt",
+       "startWithNewLine": false,
+       "title": "สังกี่ตัวดีจ๊ะ",
+       "defaultValue": 1,
+       "isRequired": true,
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+       "validators": [
+        {
+         "type": "numeric",
+         "text": "สั่งแต่พอดีนะจ๊ะ",
+         "minValue": 1,
+         "maxValue": 10
+        }
+       ],
+       "inputType": "number"
+      },
+      {
+       "type": "text",
+       "name": "shirt_other_description",
+       "visibleIf": "{items[0].shirt_more} = \"other\"",
+       "title": "ระบุรายละเอียดไซส์ที่ต้องการได้เลยจ้า",
+       "requiredIf": "{items[0].shirt_more} = \"other\"",
+       "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า"
+      },
+      {
+       "type": "expression",
+       "name": "total",
+       "title": "รวมราคา:",
+       "expression": "shirtprice({panel.shirt_more},{panel.quantity_shirt})",
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      }
+     ],
+     "templateTitle": "สั่งเพิ่มตัวที่ #{panelIndex}",
+     "panelCount": 1,
+     "minPanelCount": 1,
+     "panelAddText": "สั่งเพิ่มอีกตัว",
+     "panelRemoveText": "ไม่เอาละดีกว่า"
+    },
+    {
+     "type": "panel",
+     "name": "panel1",
+     "elements": [
+      {
+       "type": "expression",
+       "name": "totalCost",
+       "startWithNewLine": false,
+       "title": "รวมค่าเสื้อที่สั่งเพิ่ม:",
+       "expression": "sumInArray({items}, 'total'",
+       "displayStyle": "currency",
+       "currency": "THB",
+       "commentText": "Other (describe)"
+      }
+     ],
+     "visibleIf": "{shirt_add_more} = \"Yes\"",
+     "title": "ค่าใช้จ่ายค่าเสื้อที่ต้องจ่ายเพิ่ม"
+    },
+    {
+     "type": "comment",
+     "name": "suggestions",
+     "title": "มีอะไรจะบอกเพิ่มมั้ยจ๊ะ",
+     "maxLength": 200
+    },
+    {
+     "type": "html",
+     "name": "info",
+     "html": "<br><br>1. เจ้าหน้าที่/ผู้บริหาร ที่ได้ตกลงยอมรับว่าจะเข้าร่วมงานสัมมนาประจำปี 2563 จะต้องเข้าร่วมกิจกรรมต่าง ๆ ตามกำหนดการของงานสัมมนาประจำปีที่ได้แจ้งให้ทราบ (ตามวันและเวลาที่กำหนดไว้) <br> 2. สำหรับกรณีที่ทีมงานสัมมนาได้มีการชำระค่าใช้จ่ายต่าง ๆ ในการจัดงานสัมมนาเรียบร้อยแล้ว พร้อมทั้งเจ้าหน้าที่/ผู้บริหาร ได้ตกลงเข้าร่วมงานสัมมนาประจำปี แต่มีเหตุจำเป็นหรือเหตุฉุกเฉินใด ๆ ทางเจ้าหน้าที่จะต้องทำการแจ้งรายละเอียดต่อหัวหน้างาน/ผู้บังคับบัญชาให้ทราบ หรือแจ้งทีมงานจัดงานสัมมนาโดยทันที เพื่อบันทึกข้อมูล สำหรับการบริหารงานในส่วนต่าง ๆ ต่อไป แต่ถ้าหากเจ้าหน้าที่ประมาทหรือไม่มีการแจ้งหรือดำเนินการใด ๆ ทางทีมงานสัมมนาขออนุญาตดำเนินการคิดค่าเสียหายที่ได้เกิดขึ้นจากการจัดงานสัมมนาในครั้งนี้แก่เจ้าหน้าที่ท่านนั้น ๆ (โดยมีรายละเอียดตามข้อ 3) <br>3. สำหรับกรณีที่เจ้าหน้าที่ผิดข้อตกลงฯ ที่ได้ระบุไว้ในข้อ 2 ทางเจ้าหน้าที่ จะต้องรับผิดชอบค่าเสียหาย ตามสิทธิที่ได้รับจากองค์กรและการจัดสัมมนาที่เกิดขึ้น โดยมีรายละเอียด ประกอบด้วยค่าใช้จ่ายต่าง ๆ ที่ต้องชำระ ดังนี้ <br> <div style ='padding-left:20px'> - ค่าห้องพัก (ต่อคืน)</div>   <div style ='padding-left:20px'>  - ค่าอาหาร (ต่อมื้อ)</div>  <div style ='padding-left:20px'>  - ค่าใช้จ่ายอื่น ๆ ในการร่วมกิจกรรม (เฉพาะกรณีที่มีค่าใช้จ่ายเท่านั้น) </div><br><div align = 'center'>  <b></b> </div>"
+    },
+    {
+     "type": "checkbox",
+     "name": "condition",
+     "title": "การตกลงยอมรับข้อกำหนดและเงื่อนไข สำหรับการเข้าร่วมสัมมนาประจำปี 2563",
+     "isRequired": true,
+     "requiredErrorText": "กรอกข้อมูลให้ครบด้วยจ้า",
+     "titleLocation": "hidden",
+     "choices": [
+      {
+       "value": "1",
+       "text": "เข้าใจและตกลงยอมรับกฏกติกาข้างต้น"
+      }
+     ],
+     "colCount": ""
+    }
+   ],
+   "visible": false
+  }
+ ],
+ "cookieName": "cookiesurvey",
+ "showProgressBar": "top",
+ "pagePrevText": "ย้อนกลับ",
+ "pageNextText": "ถัดไป",
+ "completeText": "ส่งคำตอบ"
+}
